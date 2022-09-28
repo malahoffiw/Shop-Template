@@ -1,0 +1,28 @@
+@import "src/styles/variables";
+
+.main {
+    width: 1210px;
+    margin-inline: auto;
+    padding-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
+    grid-template-rows: 300px 250px;
+    grid-gap: 40px;
+
+    .catalog {
+        border-radius: 10px;
+        padding-top: 138px;
+        text-align: center;
+        box-shadow: 0 2px 10px -1px $gray;
+        transition: .2s ease;
+        background-color: $blue;
+
+        p {
+            color: $white;
+        }
+
+        &:hover {
+            box-shadow: 0 2px 10px 1px $gray;
+        }
+    }
+}

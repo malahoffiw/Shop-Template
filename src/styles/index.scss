@@ -1,0 +1,21 @@
+@import "variables";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: $font;
+    text-decoration: none;
+}
+
+body {
+    margin-top: 80px;
+    background-color: $light-gray;
+    color: $gray;
+    font-size: $font-regular;
+    font-weight: 400;
+    height: calc(100vh - 80px);
+    width: 100vw;
+    overflow-x: hidden;
+}
+

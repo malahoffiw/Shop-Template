@@ -1,0 +1,56 @@
+@import "src/styles/variables";
+
+main {
+    width: 1210px;
+    margin-inline: auto;
+    padding: 60px 0;
+
+    .btn {
+        background-color: $blue;
+        width: 160px;
+        height: 40px;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+        
+        p {
+            color: $white;
+        }
+    }
+
+    .photo {
+        margin: 20px 0;
+
+        img {
+            width: 700px;
+            height: 400px;
+        }
+    }
+
+    h4 {
+        font-size: $font-extra-large;
+    }
+
+    .cost {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        &>div {
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+            border-radius: 3px;
+            background-color: $blue;
+            color: $white;
+            cursor: pointer;
+
+            .icon {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+
+}

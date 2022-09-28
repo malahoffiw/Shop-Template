@@ -1,0 +1,14 @@
+@import "src/styles/variables";
+
+main {
+    width: 1210px;
+    margin-inline: auto;
+    padding: 60px 0;
+
+    ul {
+        display: grid;
+        grid-template-columns: repeat(4, 250px);
+        gap: 70px;
+        list-style: none;
+    }
+}

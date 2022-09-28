@@ -1,0 +1,50 @@
+@import "src/styles/variables";
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    box-shadow: 0 2px 10px -5px $gray;
+    padding-inline: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    background-color: $blue;
+
+    p {
+        font-weight: 700;
+        font-size: $font-large;
+        color: $white;
+    }
+
+    .cart {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        color: $white;
+
+        &Count {
+            position: absolute;
+            right: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background-color: $white;
+            color: $blue;
+            font-size: $font-small;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &Icon {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
