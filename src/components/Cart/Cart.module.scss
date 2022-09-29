@@ -1,0 +1,46 @@
+@import "src/styles/variables";
+
+.section {
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    top: 80px;
+    height: calc(100vh - 80px);
+    width: 410px;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid $blue;
+    background-color: $light-gray;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    h2 {
+        margin: 40px 40px 30px;
+    }
+
+    &Ul {
+        margin: 0 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cartInfo {
+        margin-top: 40px;
+        padding: 40px;
+        border-top: 2px solid $blue;
+        line-height: 34px;
+
+        tr:last-child {
+            font-weight: 700;
+            font-size: $font-large;
+        }
+
+        td:nth-child(2n) {
+            text-align: end;
+        }
+    }
+}

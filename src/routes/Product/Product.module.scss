@@ -16,6 +16,10 @@ main {
         p {
             color: $white;
         }
+
+        &:hover {
+            filter: brightness(90%);
+        }
     }
 
     .photo {
@@ -49,6 +53,10 @@ main {
             .icon {
                 width: 24px;
                 height: 24px;
+            }
+
+            &:hover {
+                filter: brightness(90%);
             }
         }
     }
