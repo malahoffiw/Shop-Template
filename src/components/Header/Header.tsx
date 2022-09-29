@@ -5,16 +5,17 @@ import classes from "./Header.module.scss"
 import { ProductInterface } from "../../types"
 
 type HeaderProps = {
-    cart: Record<string, ProductInterface>
+    cart: Record<string, ProductInterface>,
+    handleCartIconClick: React.MouseEventHandler<HTMLDivElement>
 }
 
-const Header = ({ cart }: HeaderProps) => {
+const Header = ({ cart, handleCartIconClick }: HeaderProps) => {
     return (
         <header>
             <Link to="/">
                 <p>Shop</p>
             </Link>
-            <div className={classes.cart}>
+            <div className={classes.cart} onClick={handleCartIconClick} >
                 <div className={classes.cartCount}>
                     {Object.keys(cart).length}
                 </div>

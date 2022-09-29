@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams } from "react-router-dom"
-import { IoCartOutline } from "react-icons/io5"
+import { IoCartOutline, IoCartSharp } from "react-icons/io5"
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import classes from "./Product.module.scss"
-import { ProductInterface } from "../../types"
+import { CartItemInterface, ProductInterface } from "../../types"
 
 type ProductProps = {
     products: ProductInterface[],
-    cart: Record<string, ProductInterface>,
-    setCart: React.Dispatch<React.SetStateAction<Record<string, ProductInterface>>>
+    cart: Record<string, CartItemInterface>,
+    setCart: React.Dispatch<React.SetStateAction<Record<string, CartItemInterface>>>
 }
 
 const Product = ({ products, cart, setCart }: ProductProps) => {
@@ -28,19 +29,23 @@ const Product = ({ products, cart, setCart }: ProductProps) => {
         } else {
             setCart(prevCart => ({
                 ...prevCart,
-                [productId]: product
+                [productId]: { ...product, amount: 1}
             }))
         }
     }
 
-    if (!product) return <></> // Loading
+    if (!product) return (
+        <div className={classes.loader}>
+            <AiOutlineLoading3Quarters className={classes.loaderLine} />
+        </div>
+    )
     return (
         <main>
-            <button className={classes.btn}>
-                <Link to="/products">
+            <Link to="/products">
+                <button className={classes.btn}>
                     <p>Назад к каталогу</p>
-                </Link>
-            </button>
+                </button>
+            </Link>
             <div className={classes.photo}>
                 <img src={product.url} alt={`product${productId}`} />
             </div>
@@ -48,9 +53,12 @@ const Product = ({ products, cart, setCart }: ProductProps) => {
             <p>Item model number: {productId}</p>
             <div className={classes.cost}>
                 <div onClick={handleCartClick}>
-                    <IoCartOutline className={classes.icon}/>
+                    { cart.hasOwnProperty(product.id)
+                        ? <IoCartSharp className={classes.icon} />
+                        : <IoCartOutline className={classes.icon} />
+                    }
                 </div>
-                <p>{product.price}</p>
+                <p>$ {product.price}</p>
             </div>
         </main>
     )

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { ProductInterface } from "./types"
+import store from "store"
+import { CartItemInterface, ProductInterface} from "./types"
 import fetchItems from "./services/fetchItems"
 import Main from "./routes/Main/Main"
 import Products from "./routes/Products/Products"
@@ -11,7 +12,19 @@ import Cart from "./components/Cart/Cart"
 
 const App = () => {
     const [products, setProducts] = useState<ProductInterface[]>([])
-    const [cart, setCart] = useState<Record<string, ProductInterface>>({})
+    const [cart, setCart] = useState<Record<string, CartItemInterface>>(store.get('cart') || {})
+    const cartRef = useRef<HTMLElement>(null)
+    const handleCartIconClick = () => {
+        if (!cartRef.current) return
+
+        if (cartRef.current.id === "hidden") {
+            cartRef.current.style.display = "flex"
+            cartRef.current.id = ""
+        } else {
+            cartRef.current.style.display = "none"
+            cartRef.current.id = "hidden"
+        }
+    }
 
     useEffect(() => {
         fetchItems()
@@ -22,12 +35,16 @@ const App = () => {
                 }))))
     }, [])
 
+    useEffect(() => {
+        store.set('cart', cart)
+    }, [cart])
+
     return (
         <div className="appBody">
             <div className="content">
                 <Router>
-                    <Header cart={cart} />
-                    <Cart cart={cart} setCart={setCart} />
+                    <Header cart={cart} handleCartIconClick={handleCartIconClick}/>
+                    <Cart cartRef={cartRef} cart={cart} setCart={setCart} />
                     <Routes>
                         <Route path="/"
                                element={<Main />}

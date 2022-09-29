@@ -7,5 +7,9 @@ export interface ItemInterface {
 }
 
 export interface ProductInterface extends ItemInterface {
-    price: string;
+    price: number;
+}
+
+export interface CartItemInterface extends ProductInterface {
+    amount: number;
 }

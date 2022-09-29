@@ -1,28 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import classes from "./Cart.module.scss"
-import { ProductInterface } from "../../types"
+import { CartItemInterface } from "../../types"
 import CartElement from "./CartElement/CartElement"
 
 type CartProps = {
-    cart: Record<string, ProductInterface>,
-    setCart: React.Dispatch<React.SetStateAction<Record<string, ProductInterface>>>
+    cart: Record<string, CartItemInterface>,
+    setCart: React.Dispatch<React.SetStateAction<Record<string, CartItemInterface>>>,
+    cartRef: React.RefObject<HTMLElement>
 }
 
-const Cart = ({ cart, setCart }: CartProps) => {
-    const cartElements = Object.values(cart).map(el => <CartElement data={el}/>)
-
-    const subtotal = 1200
-    const total = 1450
-
+const Cart = ({ cartRef, cart, setCart }: CartProps) => {
+    const [isOrdering, setIsOrdering] = useState(false)
+    const cartElements = Object.values(cart).map(el => <CartElement key={el.id} data={el} setCart={setCart} />)
+    const subtotal = Object.values(cart).reduce((sum: number, curr) => sum + curr.price * curr.amount, 0)
     const tax = 100
     const shipping = 150
 
+    const handleOrder = () => {
+        setIsOrdering(true)
+        setTimeout(() => {
+            setCart({})
+            setIsOrdering(false)
+            if (!!cartRef.current && cartRef.current.id !== "hidden") {
+                cartRef.current.style.display = "none"
+                cartRef.current.id = "hidden"
+            }
+        }, 2000)
+    }
 
     return (
-        <section className={classes.section}>
+        <section id="hidden" className={classes.section} ref={cartRef}>
             <h2>Корзина</h2>
             <ul className={classes.sectionUl}>
-                {cartElements}
+                { cartElements.length > 0
+                    ? cartElements
+                    : <p>Корзина пуста</p>
+                }
             </ul>
             <table className={classes.cartInfo}>
                 <tbody>
@@ -40,10 +54,22 @@ const Cart = ({ cart, setCart }: CartProps) => {
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>$ {total}</td>
+                        <td>$ {subtotal + tax + shipping}</td>
                     </tr>
                 </tbody>
             </table>
+            <button className={classes.placeOrderBtn}
+                onClick={handleOrder}
+            >
+                { isOrdering
+                    ? (
+                        <div className={classes.loader}>
+                            <AiOutlineLoading3Quarters className={classes.loaderLine} />
+                        </div>
+                    )
+                    : <p>Оформить заказ</p>
+                }
+            </button>
         </section>
     )
 }
